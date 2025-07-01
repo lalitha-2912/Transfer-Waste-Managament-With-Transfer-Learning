@@ -1,0 +1,1 @@
+# Transfer-Waste-Managament-With-Transfer-Learning
