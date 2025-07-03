@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification Result</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 300;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #f8f9ff, #e8f2ff);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .prediction {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #333;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .prediction.biodegradable {
+            border-left: 5px solid #28a745;
+            color: #28a745;
+        }
+
+        .prediction.recyclable {
+            border-left: 5px solid #007bff;
+            color: #007bff;
+        }
+
+        .prediction.trash {
+            border-left: 5px solid #dc3545;
+            color: #dc3545;
+        }
+
+        .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #495057);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 10px 20px rgba(108, 117, 125, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Classification Result</h1>
+        
+        <div class="result-card">
+            <div class="icon">
+                {% if 'biodegradable' in prediction.lower() %}
+                    🌱
+                {% elif 'recyclable' in prediction.lower() %}
+                    ♻️
+                {% else %}
+                    🗑️
+                {% endif %}
+            </div>
+            
+            <p class="description">The uploaded image is classified as:</p>
+            
+            <div class="prediction 
+                {% if 'biodegradable' in prediction.lower() %}biodegradable
+                {% elif 'recyclable' in prediction.lower() %}recyclable
+                {% else %}trash{% endif %}">
+                <strong>{{ prediction }}</strong>
+            </div>
+            
+            <div class="description">
+                {% if 'biodegradable' in prediction.lower() %}
+                    This item can decompose naturally and is environmentally friendly.
+                {% elif 'recyclable' in prediction.lower() %}
+                    This item can be processed and reused to create new products.
+                {% else %}
+                    This item should be disposed of in regular waste bins.
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <a href="/" class="btn">🔄 Try Another Image</a>
+            <a href="/portfolio" class="btn btn-secondary">📋 Project Info</a>
+        </div>
+    </div>
+</body>
+</html> 
